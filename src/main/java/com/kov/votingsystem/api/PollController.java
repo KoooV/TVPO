@@ -3,7 +3,7 @@ package com.kov.votingsystem.api;
 import com.kov.votingsystem.exception.DuplicateVoteException;
 import com.kov.votingsystem.exception.PollClosedException;
 import com.kov.votingsystem.exception.UnknownOptionException;
-import com.kov.votingsystem.service.PollNotFoundException;
+import com.kov.votingsystem.exception.PollNotFoundException;
 import com.kov.votingsystem.service.PollService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

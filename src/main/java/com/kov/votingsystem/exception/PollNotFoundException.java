@@ -1,4 +1,4 @@
-package com.kov.votingsystem.service;
+package com.kov.votingsystem.exception;
 
 public class PollNotFoundException extends RuntimeException {
 	public PollNotFoundException(String message) {

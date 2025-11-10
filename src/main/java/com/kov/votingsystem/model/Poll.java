@@ -4,8 +4,6 @@ import com.kov.votingsystem.exception.DuplicateVoteException;
 import com.kov.votingsystem.exception.PollClosedException;
 import com.kov.votingsystem.exception.UnknownOptionException;
 import lombok.Getter;
-
-import java.time.Instant;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -16,7 +14,6 @@ import java.util.UUID;
 public class Poll {
 	private final String id;
 	private final String question;
-	private final Instant createdAt;
 	private boolean closed;
 	private final Map<String, Integer> optionToVotes;
 	private final Map<String, String> participantToOption;
@@ -24,17 +21,23 @@ public class Poll {
 	public Poll(String question, Iterable<String> options) {
 		this.id = UUID.randomUUID().toString();
 		this.question = Objects.requireNonNull(question, "question");
-		this.createdAt = Instant.now();
 		this.closed = false;
 		this.optionToVotes = new LinkedHashMap<>();
+
 		for (String opt : options) {
-			if (opt == null || opt.isBlank()) continue;
-			this.optionToVotes.putIfAbsent(opt, 0);
+			if (opt != null && !opt.isBlank()) {
+				if (!this.optionToVotes.containsKey(opt)) {// проверка на наличие ключа
+					this.optionToVotes.put(opt, 0);
+				}
+			}
 		}
+
 		if (this.optionToVotes.isEmpty()) {
 			throw new IllegalArgumentException("Poll must contain at least one option");
 		}
+
 		this.participantToOption = new LinkedHashMap<>();
+
 	}
 
 	public void close() {

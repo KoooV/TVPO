@@ -1,6 +1,5 @@
 package com.kov.votingsystem.sdd;
 
-import com.kov.votingsystem.repository.InMemoryPollRepository;
 import com.kov.votingsystem.service.PollService;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -9,9 +8,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * SDD: табличные сценарии. Входные данные и ожидаемый результат задаются таблицей.
- */
+// SDD: табличные сценарии. Входные данные и ожидаемый результат задаются таблицей.
 class PollResultsTableTests {
 	@ParameterizedTest(name = "A={0}, B={1} -> ожидается A={2}, B={3}")
 	@CsvSource({
@@ -20,7 +17,7 @@ class PollResultsTableTests {
 		"'A',      'A,B', 1, 0"
 	})
 	void tableDriven(String votesCsv, String optionsCsv, int expectedA, int expectedB) {
-		var service = new PollService(new InMemoryPollRepository());
+		var service = new PollService();
 		var poll = service.createPoll("Q", List.of(optionsCsv.split(",")));
 		String[] votes = votesCsv.split(",");
 		for (int i = 0; i < votes.length; i++) {
