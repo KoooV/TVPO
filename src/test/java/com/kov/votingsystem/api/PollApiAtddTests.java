@@ -40,7 +40,7 @@ class PollApiAtddTests {
 	record VoteRequest(String participantId, String option) {}
 
 	@Test
-	@DisplayName("ATDD: Каждый голос учитывается один раз")
+	@DisplayName("Условие: создан опрос 'Best?' с опциями [A,B]; Действие: два запроса голосования от u1 за A и запрос результатов; Ожидаемый результат: 1-й 202, 2-й 400, результаты A=1,B=0")
 	void eachVoteCountedOnce() throws Exception {
 		Poll mockPoll = new Poll("Best?", List.of("A", "B"));
 		String pollId = mockPoll.getId();
@@ -90,5 +90,3 @@ class PollApiAtddTests {
 		verify(pollService).results(pollId);
 	}
 }
-
-
